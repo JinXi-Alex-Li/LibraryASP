@@ -1,0 +1,75 @@
+﻿@model IEnumerable<LibraryASP.Models.Library>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("Search"))
+{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "ISBN",
+        Value = "ISBN"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Title",
+        Value = "Title",
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Author",
+        Value = "Author"
+    });
+    @Html.TextBox("Input")
+    @Html.DropDownList("Criterion", listItems, "Search by...", null)
+
+    <input type="submit" value="Search" />
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ISBN }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ISBN }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ISBN })
+        </td>
+    </tr>
+    }
+
+</table>
